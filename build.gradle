@@ -1,9 +1,14 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.9.6'
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
+
+allure {
+    version = '2.21.0git '
+}
 
 repositories {
     mavenCentral()
@@ -20,6 +25,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testImplementation 'io.qameta.allure:allure-selenide:2.16.1'
+    implementation 'io.qameta.allure:allure-junit5:2.19.0'
 }
 
 test {
