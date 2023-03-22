@@ -1,3 +1,4 @@
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import entities.RegistrationInfo;
@@ -9,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import utils.DataGenerator;
 
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryDateConfirmTest {
@@ -46,11 +49,16 @@ public class CardDeliveryDateConfirmTest {
         form.$("[data-test-id=phone] input").setValue("+7" + registrationInfo.getPhoneNumber());
         form.$("[data-test-id=agreement]").click();
         form.$(".button").click();
+//        $(".notification__content")
+//                .shouldHave(Condition.text("Встреча успешно забронирована на " + formatter.format(registrationInfo.getFirstMeetingDate())), Duration.ofSeconds(15))
+//                .shouldBe(Condition.visible);
 
         form.$("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         form.$("[data-test-id=date] input").setValue(formatter.format(registrationInfo.getSecondMeetingDate()));
         form.$(".button").click();
         $$(".button").find(exactText("Перепланировать")).click();
-        $(".notification_status_ok").shouldBe(exist);
+        $(".notification__content")
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + formatter.format(registrationInfo.getSecondMeetingDate())), Duration.ofSeconds(15))
+                .shouldBe(Condition.visible);
     }
 }
