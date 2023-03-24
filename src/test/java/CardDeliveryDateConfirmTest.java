@@ -48,7 +48,7 @@ public class CardDeliveryDateConfirmTest {
         form.$("[data-test-id=agreement]").click();
         form.$(".button").click();
         $(".notification__content")
-                .shouldHave(Condition.text("Встреча успешно забронирована на " + formatter.format(registrationInfo.getFirstMeetingDate())), Duration.ofSeconds(15))
+                .shouldHave(Condition.text("Встреча успешно запланирована на " + formatter.format(registrationInfo.getFirstMeetingDate())), Duration.ofSeconds(15))
                 .shouldBe(Condition.visible);
 
         form.$("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
@@ -56,7 +56,7 @@ public class CardDeliveryDateConfirmTest {
         form.$(".button").click();
         $$(".button").find(exactText("Перепланировать")).click();
         $(".notification__content")
-                .shouldHave(Condition.text("Встреча успешно забронирована на " + formatter.format(registrationInfo.getSecondMeetingDate())), Duration.ofSeconds(15))
+                .shouldHave(Condition.text("Встреча успешно запланирована на " + formatter.format(registrationInfo.getSecondMeetingDate())), Duration.ofSeconds(15))
                 .shouldBe(Condition.visible);
     }
 }
